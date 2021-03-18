@@ -6,30 +6,65 @@
 /*   By: alboumed <alboumed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 16:13:01 by alboumed          #+#    #+#             */
-/*   Updated: 2021/03/18 12:32:23 by alboumed         ###   ########.fr       */
+/*   Updated: 2021/03/18 13:34:49 by alboumed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// void print_abs_path(char *path)
-// {
-// 	getcwd(path, len);
-// 	ft_putstr_fd(path, fd);
-// }
-
-int main()
+int	print_abs_path(void)
 {
-	char *line;
-	char path[100];
-	int fd;
-	size_t len;
+	char	*path;
+	size_t	len;
 
-	fd = 0;
-	len = 100;
-	ft_putstr_fd("$> : ", fd);
-	get_next_line(fd, &line);
-	getcwd(path, len);
-	ft_putstr_fd(path, fd);
+	len = 50;
+	if (!(path = malloc(sizeof(char) * len)))
+		return (0);
+	while (!getcwd(path, len))
+	{
+		free(path);
+		len *= 2;
+		if (!(path = malloc(sizeof(char) * len)))
+			return (0);
+	}
+	ft_putstr_fd(path, STDOUT_FILENO);
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	return (1);
+}
+
+int pwd(char *line)
+{
+	int i;
+
+	i = 3;
+	if (!ft_strncmp(line, "pwd", 3))
+	{
+		while (ft_isspace(line[i]))
+			++i;
+		if (line[i] != '\0')
+			printf("pwd : too many arguments\n");
+		else
+			print_abs_path();
+		return (1);
+	}
+	return (0);
+}
+
+void	get_command(void)
+{
+	char	*line;
+
+	get_next_line(STDIN_FILENO, &line);
+	if (pwd(line))
+		return ;
+}
+
+int main(void)
+{
+	while (1)
+	{
+		ft_putstr_fd("$> : ", STDOUT_FILENO);
+		get_command();
+	}
 	return (0);
 }

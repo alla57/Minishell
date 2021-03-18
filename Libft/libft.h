@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboumed <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alboumed <alboumed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 19:26:55 by alboumed          #+#    #+#             */
-/*   Updated: 2019/12/12 22:44:59 by alboumed         ###   ########.fr       */
+/*   Updated: 2021/03/18 13:27:52 by alboumed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+int					ft_isspace(char c);
 int					ft_atoi(const char *str);
 void				*ft_bzero(void *s, size_t n);
 void				*ft_calloc(size_t count, size_t size);

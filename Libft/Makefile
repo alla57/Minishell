@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alboumed <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: alboumed <alboumed@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 12:42:16 by alboumed          #+#    #+#              #
-#    Updated: 2019/12/11 22:47:47 by alboumed         ###   ########.fr        #
+#    Updated: 2021/03/18 13:28:42 by alboumed         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRCS	=	./ft_isascii.c		\
 			./ft_strjoin.c		\
 			./ft_strnstr.c		\
 			./ft_strcmp.c		\
+			./ft_isspace.c		\
 
 SRC_BNS	=	./ft_lstnew.c		\
 			./ft_lstadd_front.c	\
