@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboumed <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alboumed <alboumed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 16:55:11 by alboumed          #+#    #+#             */
-/*   Updated: 2020/02/15 15:54:19 by alboumed         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:13:25 by alboumed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <unistd.h>
 
-char	*ft_strjoin(char *s1, char const *s2)
+char	*ft_strjoin_mod(char *s1, char const *s2)
 {
 	int		i;
 	int		j;
@@ -89,7 +89,7 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	if (!(*line = ft_strdup(buf)))
 		return (-1);
-	while (ft_strchr(buf, '\n') < 0)
+	while (ft_strchr_mod(buf, '\n') < 0)
 	{
 		len = read(fd, buf, BUFFER_SIZE);
 		if (len <= 0)
@@ -98,7 +98,7 @@ int		get_next_line(int fd, char **line)
 			return (len);
 		}
 		buf[len] = '\0';
-		*line = ft_strjoin(*line, buf);
+		*line = ft_strjoin_mod(*line, buf);
 	}
 	ft_strcpy(buf, ft_strafter(buf, '\n'));
 	*line = ft_strbefore(*line, '\n');

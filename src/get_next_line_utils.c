@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboumed <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alboumed <alboumed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 16:55:57 by alboumed          #+#    #+#             */
-/*   Updated: 2020/02/04 16:56:01 by alboumed         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:11:56 by alboumed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_strdup(const char *s1)
 	return (dest);
 }
 
-int		ft_strchr(const char *s, int c)
+int		ft_strchr_mod(const char *s, int c)
 {
 	int i;
 
