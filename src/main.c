@@ -6,7 +6,7 @@
 /*   By: alboumed <alboumed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 16:13:01 by alboumed          #+#    #+#             */
-/*   Updated: 2021/03/18 13:34:49 by alboumed         ###   ########.fr       */
+/*   Updated: 2021/03/19 14:45:42 by alboumed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,19 @@ int pwd(char *line)
 {
 	int i;
 
-	i = 3;
-	if (!ft_strncmp(line, "pwd", 3))
+	i = 0;
+	while (ft_isspace(line[i]))
+		++i;
+	if (!ft_strncmp(line + i, "pwd", 3))
 	{
+		i += 3;
 		while (ft_isspace(line[i]))
 			++i;
-		if (line[i] != '\0')
-			printf("pwd : too many arguments\n");
-		else
+		if (ft_isspace(line[i - 1]) || line[i] == '\0')
+		{
 			print_abs_path();
-		return (1);
+			return (1);
+		}
 	}
 	return (0);
 }
@@ -57,6 +60,8 @@ void	get_command(void)
 	get_next_line(STDIN_FILENO, &line);
 	if (pwd(line))
 		return ;
+	else
+		printf("%s : command not found\n", line);
 }
 
 int main(void)
