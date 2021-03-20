@@ -6,7 +6,7 @@
 /*   By: alboumed <alboumed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 16:13:01 by alboumed          #+#    #+#             */
-/*   Updated: 2021/03/19 14:45:42 by alboumed         ###   ########.fr       */
+/*   Updated: 2021/03/20 18:12:36 by alboumed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,35 @@ int pwd(char *line)
 void	get_command(void)
 {
 	char	*line;
+	char	**cmds;
+	char	**args;
+	char	*bin_path;
+	char* env[]={NULL};
+	int status;
 
+	bin_path = "/bin";
 	get_next_line(STDIN_FILENO, &line);
+	cmds = ft_split(line, ";");
+	if (cmds[0])
+	{
+		args = ft_split(cmds[0], ' ');
+		args[0];
+	}
 	if (pwd(line))
 		return ;
 	else
-		printf("%s : command not found\n", line);
+	{
+		// printf("a PID = %d\n", getpid());
+		if (fork() > 0)
+		{
+			waitpid(-1, &status, 0);
+		}
+		else
+		{
+			if (execve("/bin/ls", args, env) == -1)
+				printf("%s : command not found\n", line);
+		}
+	}
 }
 
 int main(void)
