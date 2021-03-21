@@ -6,7 +6,7 @@
 /*   By: alboumed <alboumed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 16:13:01 by alboumed          #+#    #+#             */
-/*   Updated: 2021/03/20 18:12:36 by alboumed         ###   ########.fr       */
+/*   Updated: 2021/03/21 14:12:23 by alboumed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,14 @@ int	print_abs_path(void)
 	return (1);
 }
 
-int pwd(char *line)
+int pwd(char **args)
 {
 	int i;
 
 	i = 0;
-	while (ft_isspace(line[i]))
-		++i;
-	if (!ft_strncmp(line + i, "pwd", 3))
+	if (!ft_strncmp(args[0], "pwd", 3))
 	{
-		i += 3;
-		while (ft_isspace(line[i]))
-			++i;
-		if (ft_isspace(line[i - 1]) || line[i] == '\0')
+		if (!args[1])
 		{
 			print_abs_path();
 			return (1);
@@ -53,37 +48,67 @@ int pwd(char *line)
 	return (0);
 }
 
+void	extern_cmds(char **args)
+{
+	char	*bin_path;
+	char*	env[]={NULL};
+	int		status;
+
+	bin_path = "/bin/";
+	bin_path = ft_strjoin(bin_path, args[0]);
+	if (fork() > 0)
+		waitpid(-1, &status, 0);
+	else
+	{
+		if (execve(bin_path, args, env) == -1)
+			printf("%s : command not found\n", args[0]);
+	}
+	free(bin_path);
+	free_multi((void**)args);
+}
+
+void my_commands(char **args)
+{
+	if (pwd(args))
+		return ;
+	else
+		printf("%s : command not found\n", args[0]);
+}
+
+void check_cmd(char *cmd)
+{
+	char	**args;
+	char	**my_cmds;
+	char	*my_cmd;
+	int		i;
+
+	i = 0;
+	my_cmd = "echo cd pwd export unset env exit";
+	my_cmds = ft_split(my_cmd, ' ');
+	args = ft_split(cmd, ' ');
+	while (my_cmds[i] && ft_strcmp(args[0], my_cmds[i]))
+		++i;
+	if (!my_cmds[i])
+		extern_cmds(args);
+	else
+		my_commands(args);
+}
+
 void	get_command(void)
 {
 	char	*line;
 	char	**cmds;
-	char	**args;
-	char	*bin_path;
-	char* env[]={NULL};
-	int status;
+	// char	*bin_path;
+	// char*	env[]={NULL};
+	// int		status;
+	int		i;
 
-	bin_path = "/bin";
+	i = -1;
 	get_next_line(STDIN_FILENO, &line);
-	cmds = ft_split(line, ";");
-	if (cmds[0])
+	cmds = ft_split(line, ';');
+	while (cmds[++i])
 	{
-		args = ft_split(cmds[0], ' ');
-		args[0];
-	}
-	if (pwd(line))
-		return ;
-	else
-	{
-		// printf("a PID = %d\n", getpid());
-		if (fork() > 0)
-		{
-			waitpid(-1, &status, 0);
-		}
-		else
-		{
-			if (execve("/bin/ls", args, env) == -1)
-				printf("%s : command not found\n", line);
-		}
+		check_cmd(cmds[i]);
 	}
 }
 

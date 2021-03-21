@@ -6,7 +6,7 @@
 /*   By: alboumed <alboumed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 19:26:55 by alboumed          #+#    #+#             */
-/*   Updated: 2021/03/18 13:27:52 by alboumed         ###   ########.fr       */
+/*   Updated: 2021/03/21 13:57:24 by alboumed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 
 # include <stddef.h>
+# include "stdlib.h"
 
 typedef struct		s_list
 {
@@ -21,6 +22,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+void				free_multi(void **tab);
 int					ft_isspace(char c);
 int					ft_atoi(const char *str);
 void				*ft_bzero(void *s, size_t n);
