@@ -6,7 +6,7 @@
 /*   By: alboumed <alboumed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 19:26:55 by alboumed          #+#    #+#             */
-/*   Updated: 2021/03/21 13:57:24 by alboumed         ###   ########.fr       */
+/*   Updated: 2021/03/21 16:56:47 by alboumed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+int ft_strcasecmp(char *s1, char *s2);
 void				free_multi(void **tab);
 int					ft_isspace(char c);
 int					ft_atoi(const char *str);

@@ -6,7 +6,7 @@
 #    By: alboumed <alboumed@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 12:42:16 by alboumed          #+#    #+#              #
-#    Updated: 2021/03/21 12:04:01 by alboumed         ###   ########.fr        #
+#    Updated: 2021/03/21 17:05:52 by alboumed         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRCS	=	./ft_isascii.c		\
 			./ft_strcmp.c		\
 			./ft_isspace.c		\
 			./free_multi.c		\
+			./ft_strcasecmp.c	\
 
 SRC_BNS	=	./ft_lstnew.c		\
 			./ft_lstadd_front.c	\
