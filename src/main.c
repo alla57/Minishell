@@ -6,12 +6,12 @@
 /*   By: alboumed <alboumed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 16:13:01 by alboumed          #+#    #+#             */
-/*   Updated: 2021/03/25 17:08:34 by alboumed         ###   ########.fr       */
+/*   Updated: 2021/03/29 11:14:39 by alboumed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
+/*
 int	print_abs_path(void)
 {
 	char	*path;
@@ -157,5 +157,15 @@ int main(void)
 		ft_putstr_fd("$> : ", STDOUT_FILENO);
 		get_command(my_cmds);
 	}
+	return (0);
+}
+*/
+
+int main (void)
+{
+	char			*src;
+
+	src = "3 + 4";
+	ft_parsing(src);
 	return (0);
 }

@@ -6,17 +6,11 @@
 /*   By: alboumed <alboumed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 10:57:01 by alboumed          #+#    #+#             */
-/*   Updated: 2021/03/26 16:51:16 by alboumed         ###   ########.fr       */
+/*   Updated: 2021/03/29 18:05:59 by alboumed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-typedef union	u_val
-{
-	int nb;
-	char *expr;
-}				t_val;
 
 typedef enum	e_op
 {
@@ -29,94 +23,100 @@ typedef enum	e_token_type
 	IS_VAL,
 	IS_OP,
 	IS_SPACE,
+	IS_EXPR,
 	IS_INVALID
 }				t_token_type;
 
-typedef struct	s_jesaispas
+typedef struct	s_parsing t_parsing;
+
+struct	s_parsing
 {
-	t_token_type current_token;
-	t_token_type next_token;
-}				t_jesaispas;
-
-typedef struct	s_token
-{
-	char	*str;
-	t_op	op;
-	t_token left;
-	t_token right;
-}				t_token;
-
-t_token_type value_type(char *src)
-{
-	int i;
-}
-
-void is_operation(t_token token)
-{
-	if (token->str[0] == '+')
-		token->op = OP_ADD;
-	else if (token->str[0] == '*')
-		token->op = OP_MUL;
-	else
-		return ;
-	token->str += 1;
-}
-
-int is_integer(char *src)
-{
-	int i;
-	int nb;
-
-	i = 0;
-	if (ft_isdigit(src[i]))
-	{
-		nb = ft_atoi(src);
-		while (ft_isdigit(src[i]))
-			++i;
-	}
-	return (nb);
-}
-
-int check_current_token(char *src)
-{
-	int i;
-
-	if (is_integer(src))
-}
-
-int parsing(char *src)
-{
-	int		i;
-	t_op	op;
-
-	i = 0;
-	check_current_token(src);
-}
-
-int node_add(char *str)
-{
-	int res;
-
-	if (current_token is number && next_token is number)
-		res = current_token + next_token;
-	else
-		which_node(next_node);
-}
-
-int which_node(char *str)
-{
-	if (wh)
-}
-
-int main (void)
-{
-	t_parsing		calc;
+	t_op			op;
+	char			*str;
 	t_token_type	token_type;
-	char			*src;
-	int				res;
+	int				value;
+	t_parsing		*base;
+	t_parsing		*left;
+	t_parsing		*right;
+};
 
-	src = "3 + 4";
-	res = parsing(src);
-	printf("%d\n", res);
+char *skip_spaces(char *str)
+{
+	int i;
+
+	i = 0;
+	while (ft_isspace(str[i]))
+		++i;
+	return (str + i);
+}
+
+int is_operation(t_parsing *parsing)
+{
+	parsing->left->str = skip_spaces(parsing->left->str);
+	if (parsing->left->str[0] == '+')
+		parsing->op = OP_ADD;
+	else if (parsing->left->str[0] == '*')
+		parsing->op = OP_MUL;
+	else
+		return (0);
+	parsing->token_type = IS_OP;
+	parsing->right->str = skip_spaces(parsing->left->str + 1);
+	return (1);
+}
+
+int left_value(t_parsing *parsing)
+{
+	int i;
+
+	i = 0;
+	if (ft_isdigit(parsing->str[i]))
+	{
+		parsing->left->base = parsing;
+		parsing->left->token_type = IS_VAL;
+		parsing->left->value = ft_atoi(parsing->str);
+		while (ft_isdigit(parsing->str[i]))
+			++i;
+		parsing->left->str = parsing->str + i;
+		return (1);
+	}
 	return (0);
+}
+
+int right_value(t_parsing *parsing)
+{
+	int i;
+
+	i = 0;
+	if (ft_isdigit(parsing->str[i]))
+	{
+		parsing->right->base = parsing;
+		parsing->right->token_type = IS_VAL;
+		parsing->right->value = ft_atoi(parsing->str);
+		while (ft_isdigit(parsing->str[i]))
+			++i;
+		parsing->right->str = parsing->str + i;
+		return (1);
+	}
+	return (0);
+}
+
+void tokenizer(t_parsing *parsing)
+{
+	int i;
+	char **tokens;
+
+	i = 0;
+	// if (left_value(parsing))
+	// 	;
+	// else if (is_operation(parsing))
+	// 	;
+	// right_value(parsing);
+	tokens = ft_split(parsing->str);
+}
+
+int ft_parsing(char *src)
+{
+	t_parsing parsing;
+	parsing.str = src;
+	tokenizer(&parsing);
 }
